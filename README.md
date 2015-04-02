@@ -201,7 +201,7 @@ That would generate the following scatter plot:
 
 ![alt](http://i.imgur.com/qYzNgTB.png)
 
-It's a start! But that's a whole lot of work just to generate a single scatter plot. There has to be an easier way!
+It's a start! But that's a whole lot of work just to generate a single scatter plot. What if I need to make many scatter plots or want to style and color them differently? There has to be an easier way!
 
 ##Enter data visualization
 
