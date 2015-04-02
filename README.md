@@ -14,7 +14,7 @@
 * Why do we care about looking at this data? The importance of visualization. Yes, they are cool, but there is more to it.
 * Dashboards with links to other resources on them
 
-##Make manually with svg
+##Making graphs manually with SVG
 
 SVG, or Scalable Vector Graphics, an XML-based vector graphics system for the web allows for a number of benefits: SVG images can scale and zoom without degradation, they can be written with anything that supports HTML (though they are often drawn with an imaging program) and they can even be searched and indexed!
 
