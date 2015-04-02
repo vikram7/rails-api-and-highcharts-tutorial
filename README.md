@@ -1,5 +1,12 @@
 #Outline
 
+##This tutorial will cover the following
+
+* What is SVG? How do we use it?
+* What is d3? How do I use that?
+* How do I make a Rails API?
+* How do I dynamically associate data with d3?
+
 ##Show final example of what we're trying to do
 
 * Screenshot
@@ -196,8 +203,11 @@ That would generate the following scatter plot:
 
 It's a start! But that's a whole lot of work just to generate a single scatter plot. There has to be an easier way!
 
-##Make with d3
+##Enter data visualization
 
+* Why do we want to visualize data?
+* How can we visualize data?
+* HighCharts vs d3 vs others?
 * Using data we have, we create a graph with d3.
 * End of this section. We can't keep doing this by hand. Say we have dynamic data. What do we do?
 
