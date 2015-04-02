@@ -205,9 +205,117 @@ It's a start! But that's a whole lot of work just to generate a single scatter p
 
 ##Enter data visualization
 
+In fact, there are a few ways we can have data visualized pretty easily.
+
+[Link](http://www.highcharts.com/docs/getting-started/installation) to Highcharts installation. It's got a pretty good explanation of how to get started with Highcharts. We're just going to follow the directions here as an easy point of reference. First, let's setup our `index.html` file to *require* highcharts:
+
+```html
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+  </head>
+
+  <body>
+
+  </body>
+</html>
+```
+
+Now, let's add the code per the discussion [here](http://www.highcharts.com/docs/getting-started/your-first-chart):
+
+`index.html`:
+
+```html
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="js/chart.js"></script>
+  </head>
+
+  <body>
+    <div id="container" style="width:100%; height:400px;"></div>
+  </body>
+
+</html>
+```
+
+We also create a folder called `js` where we store our javascript scripts. We'll name ours `chart.js` and place the code from the Highcharts [site]
+
+`js/chart.js`:
+
+```javascript
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        xAxis: {
+            categories: ['Apples', 'Bananas', 'Oranges']
+        },
+        yAxis: {
+            title: {
+                text: 'Fruit eaten'
+            }
+        },
+        series: [{
+            name: 'Jane',
+            data: [1, 0, 4]
+        }, {
+            name: 'John',
+            data: [5, 7, 3]
+        }]
+    });
+});
+```
+
+This is what our directory structure should look like:
+
+```
+.
+├── index.html
+├── js
+│   └── chart.js
+
+1 directory, 2 files
+```
+
+If we load up `index.html`, we should see the following chart:
+
+![alt](http://i.imgur.com/F39z4Xt.png)
+
+Let's look back above at our `script.js` file and see what's going on. `series` determines the data that we see in our chart. If we change our `series` in our `chart.js` file as follows with some MMA fighters and values, let's see how our chart is updated.
+
+```javascript
+        series: [{
+            name: 'Ronda Rousey',
+            data: [5, 5, 5]
+        }, {
+            name: 'Jon Jones',
+            data: [8, 7, 8]
+        }]
+```
+
+And the updated chart:
+
+![alt](http://i.imgur.com/ktnUOnX.png)
+
+Great! Seems pretty straight forward. Highcharts seems like a good option. Can we use it for a scatter plot? Navigating to [jsfiddle](http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/scatter/) on the Highcharts [demo](http://www.highcharts.com/demo/scatter) site can help us out here. Let's take a look at the code provided and see if we can adjust it for the random scatter plot we looked at with SVG:
+
+```javascript
+
+```
+
+
 * Why do we want to visualize data?
 * How can we visualize data?
-* HighCharts vs d3 vs others?
+* HighCharts vs d3 vs others? Upsides and downsides.
 * Using data we have, we create a graph with d3.
 * End of this section. We can't keep doing this by hand. Say we have dynamic data. What do we do?
 
