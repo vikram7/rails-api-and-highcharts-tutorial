@@ -2,6 +2,8 @@
 
 ##This tutorial will cover the following
 
+* Why do we want to visualize data?
+* How can we visualize data?
 * What is SVG? How do we use it?
 * What is Highcharts?
 * How do I make a Rails API?
@@ -201,13 +203,11 @@ That would generate the following scatter plot:
 
 ![alt](http://i.imgur.com/qYzNgTB.png)
 
-It's a start! But that's a whole lot of work just to generate a single scatter plot. Plus it doesn't even look that nice. What if I need to make many scatter plots or want to style and color them differently? There has to be an easier way!
+It's a start! But that's a whole lot of work just to generate a single scatter plot. Plus it doesn't even look that nice. What if I need to make many scatter plots or want to style and color them differently? There has to be an easier way! We'll look at that easier way in the next section on Highcharts, a Javascript charting library.
 
-##Enter data visualization
+##Enter Highcharts
 
-In fact, there are a few ways we can have data visualized pretty easily.
-
-[Link](http://www.highcharts.com/docs/getting-started/installation) to Highcharts installation. It's got a pretty good explanation of how to get started with Highcharts. We're just going to follow the directions here as an easy point of reference. First, let's setup our `index.html` file to *require* highcharts:
+[Highcharts](http://www.highcharts.com) is a Javascript library that simplifies charting data dramatically. It's a great way to get started with charting. We'll be following the Highcharts installation link [here](http://www.highcharts.com/docs/getting-started/installation). It's got a pretty good explanation of how to get started with Highcharts. First, let's setup our `index.html` file to *require* highcharts:
 
 ```html
 <!DOCTYPE HTML>
@@ -569,11 +569,10 @@ Here, we changed axis variable names and are pretending to compare data based on
 
 The graph also looks a bit nicer than our SVG one! As you can tell, highcharts gives us some nice options, especially for pre-built libraries of charts. Take a look at the Highcharts [demo](http://www.highcharts.com/demo) site to see other examples you can make with the library.
 
-* Why do we want to visualize data?
-* How can we visualize data?
+But we still have a pretty important issue to deal with. We can't be manually entering in this data over and over for each new chart we want to build. We want our chart to update dynamically if our data changes. Imagine if we had users `user3` and `user4` with different scatter plot data. We would want our chart to handle that instead of having to manually change labels and data. We'll look at how we might do that in the next section.
+
 * Using data we have, we create a graph with HighCharts.
 * can we pass json data to highcharts?
-* End of this section. We can't keep doing this by hand. Say we have dynamic data. What do we do?
 
 ##Interlude: Rails API Generation
 
