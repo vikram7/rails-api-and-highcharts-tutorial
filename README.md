@@ -3,9 +3,9 @@
 ##This tutorial will cover the following
 
 * What is SVG? How do we use it?
-* What is d3? How do I use that?
+* What is Highcharts?
 * How do I make a Rails API?
-* How do I dynamically associate data with d3?
+* How do I hook up a Rails API with Highcharts?
 
 ##Show final example of what we're trying to do
 
@@ -201,7 +201,7 @@ That would generate the following scatter plot:
 
 ![alt](http://i.imgur.com/qYzNgTB.png)
 
-It's a start! But that's a whole lot of work just to generate a single scatter plot. What if I need to make many scatter plots or want to style and color them differently? There has to be an easier way!
+It's a start! But that's a whole lot of work just to generate a single scatter plot. Plus it doesn't even look that nice. What if I need to make many scatter plots or want to style and color them differently? There has to be an easier way!
 
 ##Enter data visualization
 
@@ -567,12 +567,11 @@ Here, we changed axis variable names and are pretending to compare data based on
 
 ![alt](http://i.imgur.com/JYbWV5e.png)
 
-The graph also looks a bit nicer than our SVG one! As you can tell, highcharts gives us some nice options, especially for pre-built libraries of charts. Take a look at the Highcharts [demo](http://www.highcharts.com/demo) site to see other examples you can make with the library. We'll take a detour here to another library, the oft-loved d3 library.
+The graph also looks a bit nicer than our SVG one! As you can tell, highcharts gives us some nice options, especially for pre-built libraries of charts. Take a look at the Highcharts [demo](http://www.highcharts.com/demo) site to see other examples you can make with the library.
 
 * Why do we want to visualize data?
 * How can we visualize data?
-* HighCharts vs d3 vs others? Upsides and downsides.
-* Using data we have, we create a graph with d3.
+* Using data we have, we create a graph with HighCharts.
 * can we pass json data to highcharts?
 * End of this section. We can't keep doing this by hand. Say we have dynamic data. What do we do?
 
@@ -594,4 +593,3 @@ users/compare/atsheehan/vikram7
 ##Dynamic data
 
 * Hitting the api to generate the graphics dynamically
-
