@@ -1,6 +1,6 @@
 #Outline / Rough Draft
 
-Tools to generate charts, graphs, plots are quite popular these days, and for good reason. They can turn millions of numbers into something tangible and understandable. [Knowledgent](http://knowledgent.com/infographics/data-viz-101/) says the following about data visualization:
+Tools to generate charts, graphs, plots are quite popular these days, and for good reason. They can help turn millions of numbers into something tangible and understandable. [Knowledgent](http://knowledgent.com/infographics/data-viz-101/) says the following about data visualization:
 
 ```
 A well-crafted data visualization helps uncover trends, realize insights, explore sources, and tell stories.
@@ -36,12 +36,12 @@ preferences =
 (2)
 ![alt](http://i.imgur.com/wpG6PCp.png)
 
-Each point in the scatter plot is a comparison of two user's beer ratings of a particular beer. Looks like we both like `beer8` (which is probably some really Hoppy IPA if you're like me) a lot. Unless you can do some impressive math and calculations by just looking at data, (2) provides some meaningful analysis quickly. Without (2), we would be harder pressed to glean something important from (1). Imagine if we had 1,000 or 1,000,000 data points!
+Each point in the scatter plot is a comparison of two user's beer ratings of a particular beer. Looks like we both like `beer8` (which is probably some really hoppy IPA if you're like me) a lot. Unless you can do some impressive math and calculations by just looking at data, (2) provides some meaningful analysis quickly. Without (2), we would be harder pressed to glean something important from (1). Imagine if we had 1,000 beers to compare between us, or we had a database of 1,000,000 users! Which approach would could help us say something meaningful? Let's figure out how we can take advantage of the data visualization tools out there.
 
 This tutorial will cover the following
 
-* What tools can I use to visualize data?
-* How do I make a Rails API?
+* What tools can I use to visualize data with html?
+* How do I make a Rails API to deliver data I care about?
 * How do I visualize the data from my Rails API?
 
 ##Show final example of what we're trying to do
