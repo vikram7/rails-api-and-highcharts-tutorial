@@ -416,16 +416,29 @@ csv.each do |row|
 end
 ```
 
+After letting that seeder run, let's take a look at `localhost:3000/api/v1/styles` and see how it looks:
 
+![alt](http://i.imgur.com/OpbMroh.png)
 
-* Routes:
+Nice! Now we have a lot of data we can look at. What else can we do?
 
-```html
-users/compare/vikram7/atsheehan
-users/compare/atsheehan/vikram7
+Maybe we want to see how many reviews a beer has on the beers index page? We'll have to add a Beer Serializer in `beer_serializer.rb`:
+
+```ruby
+class BeerSerializer < ActiveModel::Serializer
+  embed :ids
+
+  attributes :id, :name, :style_id, :abv, :reviews_count
+
+  def reviews_count
+    object.reviews.count
+  end
+end
 ```
 
+Let's take a look at `api/v1/beers` now:
 
+![alt](http://i.imgur.com/c4uB8rS.png)
 
 See how valuable JSON data is in a format that we can do something with? Now let's actually chart some data!
 
