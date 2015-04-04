@@ -16,10 +16,10 @@
 * Why do we care about looking at this data? The importance of visualization. Yes, they are cool, but there is more to it.
 * Dashboards with links to other resources on them
 
-Part 1 -- [Making Graphs Manually with SVG](01-svg.md)
-Part 2 -- [Highcharts](02-highcharts.md)
-Part 3 -- [Making a Rails API](03-rails-api.md)
-Part 4 -- [Hooking up your Rails API with Highcharts](04-rails-api-highcharts.md)
+* Part 1 -- [Making Graphs Manually with SVG](01-svg.md)
+* Part 2 -- [Highcharts](02-highcharts.md)
+* Part 3 -- [Making a Rails API](03-rails-api.md)
+* Part 4 -- [Hooking up your Rails API with Highcharts](04-rails-api-highcharts.md)
 
 * Using data we have, we create a graph with HighCharts.
 * can we pass json data to highcharts?
