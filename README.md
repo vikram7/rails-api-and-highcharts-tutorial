@@ -16,29 +16,20 @@
 * Why do we care about looking at this data? The importance of visualization. Yes, they are cool, but there is more to it.
 * Dashboards with links to other resources on them
 
-* Part 1 -- [Making Graphs Manually with SVG](01-svg.md)
-* Part 2 -- [Highcharts](02-highcharts.md)
-* Part 3 -- [Making a Rails API](03-rails-api.md)
-* Part 4 -- [Hooking up your Rails API with Highcharts](04-rails-api-highcharts.md)
+##Part 1 - Scalable Vector Graphics
+This section will cover SVG, or *scalable vector graphics*, as an introduction to graphing data with html.
 
-* Using data we have, we create a graph with HighCharts.
-* can we pass json data to highcharts?
+[Making Graphs Manually with SVG](01-svg.md)
 
-##Interlude: Rails API Generation
+##Part 2 - The Highcharts Javascript Charting Library
+This section will be an introduction to the [Highcharts](http://www.highcharts.com/) Javascript library and how we can use it to make nice looking charts, from simple ones like bar charts to more complex ones like scatter plots.
 
-* Overview of data we have
-* Turning it into a json
-* Activemodel Serializer
-* Rails API generation
-* Routes:
+[Highcharts](02-highcharts.md)
 
-```html
-users/compare/vikram7/atsheehan
-users/compare/atsheehan/vikram7
-```
+##Part 3 - Making a Rails API
 
-* This section can also come first under "Building a Rails API"
+[Making a Rails API](03-rails-api.md)
 
-##Dynamic data
+##Part 4 - Highcharts with a Rails API
 
-* Hitting the api to generate the graphics dynamically
+[Hooking up your Rails API with Highcharts](04-rails-api-highcharts.md)
