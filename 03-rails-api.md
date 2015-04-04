@@ -33,6 +33,7 @@ Here's a roadmap of how we will take the above data and deliver it in JSON forma
 4. Update the `routes.rb` file to contain routes we care about.
 5. Write a seed file to populate our database.
 6. See what our data looks like when we hit our API.
+7. Implement ActiveModel Serializers to generate custom JSON data
 ```
 
 Sounds complicated? It's not that bad. Let's get started.
