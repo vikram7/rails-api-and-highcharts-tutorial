@@ -1,6 +1,5 @@
 tutorial.rb
-
 _index.html
-
-csvs/*
+csvs
 js/chart2.js
+beer-recommender

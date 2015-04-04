@@ -46,8 +46,49 @@ The gem has some great [documentation](https://github.com/rails-api/rails-api) t
 ####Generate a new Rails API app and update our Gemfile.
 
 ```
-rails-api new beer -T --database=postgresql
+rails-api new beer-recommender -T --database=postgresql
 ```
+
+After generating a `beer-recommender` directory, `cd` into it. Let's update our Gemfile so we have everything we need:
+
+```ruby
+
+source 'https://rubygems.org'
+
+gem 'rails', '4.2.1'
+
+gem 'rails-api'
+
+gem 'spring', :group => :development
+
+gem 'pg'
+
+gem 'active_model_serializers', '0.8.3'
+
+group :test do
+  gem 'shoulda-matchers', require: false
+end
+
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'pry-rails'
+  gem 'rspec-rails', '~> 3.0.0'
+end
+```
+
+After running `bundle`, generate your test files with rspec by running `rails g rspec:install`.
+
+Update your `spec/rails_helper.rb` file so that the top of the file looks like this (you are basically just adding the `require 'shoulder/matchers'` under `require 'rspec/rails'`):
+
+```ruby
+ENV["RAILS_ENV"] ||= 'test'
+require 'spec_helper'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+require 'shoulda/matchers'
+```
+
 
 * Routes:
 
