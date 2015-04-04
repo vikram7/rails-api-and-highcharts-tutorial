@@ -238,6 +238,8 @@ Let's take a look at `/app/v1/styles` now!:
 
 ![alt](http://i.imgur.com/lAiLlEc.png)
 
+Note that we're only delivering the *attributes* that we have specifically stated in our `Style` serializer: **id**, **name**, and **beers_count**. This is why we don't see the timestamps like we did before. We are being quite willful here and determining which attributes we want to pass on.
+
 That seems like something we can chart, right? The *x*-axis would be the name of the style and the *y*-axis would be the number of beers of that particular style in the database.
 
 ActiveModel Serializers seem pretty powerful! What else can we do? Well, we don't have a whole lot of data to play around with, but what if we had more?
@@ -260,6 +262,8 @@ John Harvards American Brown Ale,71714,8481,-,Brown Ale,4/5,5/10,3/5,6/10,12/20,
 John Harvards Grand Cru,71719,8481,7,Belgian Ale,2/5,6/10,3/5,7/10,14/20,1107302400,JFGrind,"Sampled @ the Springfield, PA location.   Candi Sugar dominates this Belgian Ale.  Beer was on the flat side but had a nice crimson color.   Enjoyable Belgian Ale, I did not expect John Harvards to have it in its line-up."
 John Harvards Grand Cru,71719,8481,7,Belgian Ale,4/5,8/10,3/5,7/10,16/20,1102896000,egajdzis,"Springfield... Poured a hazy copper color with a medium sized, off white head that left spotty lacing on the glass.  Aroma of yeast, dried fruits, clove, banana, and cherries, with light roastiness.  Aroma was very dubbelish.  Herbal taste of dark fruits, yeast and alcohol was barely noticed.  Slick mouthfeel.  Could have been more flavorful."
 ```
+
+
 
 * Routes:
 
