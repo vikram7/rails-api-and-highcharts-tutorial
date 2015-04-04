@@ -263,7 +263,124 @@ John Harvards Grand Cru,71719,8481,7,Belgian Ale,2/5,6/10,3/5,7/10,14/20,1107302
 John Harvards Grand Cru,71719,8481,7,Belgian Ale,4/5,8/10,3/5,7/10,16/20,1102896000,egajdzis,"Springfield... Poured a hazy copper color with a medium sized, off white head that left spotty lacing on the glass.  Aroma of yeast, dried fruits, clove, banana, and cherries, with light roastiness.  Aroma was very dubbelish.  Herbal taste of dark fruits, yeast and alcohol was barely noticed.  Slick mouthfeel.  Could have been more flavorful."
 ```
 
+Normally it's not the best idea to drop databases and delete migrations, but since we don't really have any mission critical data, I'm going to be doing that right here. My seed data is comprehensive, so it's worth taking a moment and cleaning up what I need exactly. What tables will I need and what will their columns and associations be?
 
+```
+(1) Beer: id, name, style_id, abv
+    has_many reviews, belongs_to style
+
+(2) Style: id, name
+    has_many beers
+
+(3) User: id, profile_name
+    has_many reviews, has_many beers through reviews
+
+(4) Review: id, beer_id, user_id, taste, text
+    belongs_to beer, belongs_to user
+```
+
+Those are all the models we'll need:
+
+```ruby
+class Beer < ActiveRecord::Base
+  belongs_to :style
+  has_many :reviews
+
+  validates :name, presence: true, uniqueness: true
+  validates :style, presence: true
+end
+```
+
+```ruby
+class Style < ActiveRecord::Base
+  has_many :beers
+
+  validates :name, presence: true, uniqueness: true
+end
+```
+
+```ruby
+class User < ActiveRecord::Base
+  has_many :reviews
+  has_many :beers, through: :reviews
+
+  validates :profile_name, presence: true, uniqueness: true
+end
+```
+
+```ruby
+class Review < ActiveRecord::Base
+  belongs_to :beer
+  belongs_to :user
+
+  validates :beer, presence: true
+  validates :taste, presence: true
+end
+```
+
+These are the migrations we'll need:
+
+```ruby
+class CreateBeers < ActiveRecord::Migration
+  def change
+    create_table :beers do |t|
+      t.string :name, null: false
+      t.integer :style_id, null: false
+      t.float :abv
+
+      t.timestamps
+    end
+
+    add_index :beers, :name, unique: true
+  end
+end
+```
+
+```ruby
+class CreateStyles < ActiveRecord::Migration
+  def change
+    create_table :styles do |t|
+      t.string :name, null: false
+
+      t.timestamps
+    end
+
+    add_index :styles, :name, unique: true
+  end
+end
+```
+
+```ruby
+class CreateUsers < ActiveRecord::Migration
+  def change
+    create_table :users do |t|
+      t.string :profile_name, null: false
+
+      t.timestamps
+    end
+
+    add_index :users, :profile_name, unique: true
+  end
+end
+```
+
+```ruby
+class CreateReviews < ActiveRecord::Migration
+  def change
+    create_table :reviews do |t|
+      t.integer :beer_id, null: false
+      t.integer :user_id, null: false
+      t.float :taste, null: false
+      t.text :text
+
+      t.timestamps
+    end
+
+    add_index :reviews, :beer_id
+    add_index :reviews, :user_id
+  end
+end
+```
 
 * Routes:
 
