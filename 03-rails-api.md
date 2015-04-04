@@ -25,12 +25,14 @@ Creating a Rails API is very similar to creating a Rails app. We will be followi
 
 Here's a roadmap of how we will take the above data and deliver it in JSON format:
 
+[UPDATE THE BELOW ORDER]
 ```
 1. Install the Rails API gem
 2. Generate a new Rails API app and update our Gemfile.
 3. Create our backend database and write associated migrations.
-4. Write a seed file to populate our database.
-5. Write controllers to deliver the data based on some set of requirements implementing ActiveModel Serializer.
+4. Update the `routes.rb` file to contain routes we care about.
+5. Write a seed file to populate our database.
+6. Write controllers to deliver the data based on some set of requirements implementing ActiveModel Serializer.
 ```
 
 Sounds complicated? It's not that bad. Let's get started.
@@ -88,6 +90,166 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'shoulda/matchers'
 ```
+
+####Create our backend database and write associated migrations
+
+Running `rake db:create` should generate the database from the command line. Once we have a database, we should generate a beer model and associated migration just to see what the data can look like.
+
+```ruby
+class Beer < ActiveRecord::Base
+  belongs_to :style
+
+  validates :name, presence: true, uniqueness: true
+  validates :style, presence: true
+end
+```
+
+Yes, it looks pretty barebones, but let's just go for the basics. We'll have to update the above model later on anyways. Let's add our `Style` table as well:
+
+```ruby
+class Style < ActiveRecord::Base
+  has_many :beers
+
+  validates :name, presence: true, uniqueness: true
+end
+```
+
+Now we have to write migrations for our `Beer` and `Style` tables:
+
+`rails g migration create_beers` will generate a migration file in the `db/migrate` folder.
+
+```ruby
+class CreateBeers < ActiveRecord::Migration
+  def change
+    create_table :beers do |t|
+      t.string :name, null: false
+      t.integer :style_id, null: false
+
+      t.timestamps
+    end
+
+    add_index :beers, :name, unique: true
+  end
+end
+```
+
+`rails g migration create_styles` will generate a migration file in the `db/migrate` folder.
+
+```ruby
+class CreateStyles < ActiveRecord::Migration
+  def change
+    create_table :styles do |t|
+      t.string :name, null: false
+
+      t.timestamps
+    end
+
+    add_index :styles, :name, unique: true
+  end
+end
+```
+
+Ok, make sure everything looks normal in the schema file and now let's write a small seeder to seed our database:
+
+```ruby
+styles = ["IPA", "Stout", "Ale", "Lager", "Wheat Beer"]
+count = 1
+
+styles.each do |style|
+  style = Style.create!(name: style)
+  count += 1
+  Beer.create!(name: "Beer #{count}", style_id: style.id)
+  count += 1
+  Beer.create!(name: "Beer #{count}", style_id: style.id)
+end
+```
+
+Let's see what our database looks like in `rails console`:
+
+```
+Loading development environment (Rails 4.2.1)
+[1] pry(main)> Beer.all
+  Beer Load (0.6ms)  SELECT "beers".* FROM "beers"
+=> [#<Beer:0x007fe7de291648 id: 1, name: "Beer 2", style_id: 1, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Beer:0x007fe7de2912b0 id: 2, name: "Beer 3", style_id: 1, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Beer:0x007fe7de291030 id: 3, name: "Beer 4", style_id: 2, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Beer:0x007fe7de2909a0 id: 4, name: "Beer 5", style_id: 2, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Beer:0x007fe7de290428 id: 5, name: "Beer 6", style_id: 3, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Beer:0x007fe7de28be50 id: 6, name: "Beer 7", style_id: 3, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Beer:0x007fe7de28b338 id: 7, name: "Beer 8", style_id: 4, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Beer:0x007fe7de28aaa0 id: 8, name: "Beer 9", style_id: 4, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Beer:0x007fe7de28a0c8 id: 9, name: "Beer 10", style_id: 5, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Beer:0x007fe7de289ce0 id: 10, name: "Beer 11", style_id: 5, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>]
+[2] pry(main)> Style.all
+  Style Load (0.7ms)  SELECT "styles".* FROM "styles"
+=> [#<Style:0x007fe7de010c48 id: 1, name: "IPA", created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Style:0x007fe7de010838 id: 2, name: "Stout", created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Style:0x007fe7de010450 id: 3, name: "Ale", created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Style:0x007fe7de00be28 id: 4, name: "Lager", created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Style:0x007fe7de00bbf8 id: 5, name: "Wheat Beer", created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>]
+[3] pry(main)> Beer.first.style.name
+  Beer Load (0.7ms)  SELECT  "beers".* FROM "beers"  ORDER BY "beers"."id" ASC LIMIT 1
+  Style Load (0.2ms)  SELECT  "styles".* FROM "styles" WHERE "styles"."id" = $1 LIMIT 1  [["id", 1]]
+=> "IPA"
+[4] pry(main)> Style.first.beers
+  Style Load (0.4ms)  SELECT  "styles".* FROM "styles"  ORDER BY "styles"."id" ASC LIMIT 1
+  Beer Load (0.2ms)  SELECT "beers".* FROM "beers" WHERE "beers"."style_id" = $1  [["style_id", 1]]
+=> [#<Beer:0x007fe7df41ac20 id: 1, name: "Beer 2", style_id: 1, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
+ #<Beer:0x007fe7df41aa68 id: 2, name: "Beer 3", style_id: 1, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>]
+```
+
+Looks like our `Beer` and `Style` associations are in place!
+
+####Update the `config/routes.rb` file
+
+It will take a little bit of thinking to figure out what we want our API to deliver. The simplest thing we can update our `routes.rb` file with is the ability to be able to see our beers index and styles index pages:
+
+```ruby
+Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      resources :beers, only: [:index]
+      resources :styles, only: [:index]
+    end
+  end
+end
+```
+
+Most of that should look familiar, but why are we namespacing our resources? Because we're building an API! Think about end users of an API. They likely will want a nice, clean url to hit. By namespacing to API and v1, the url they hit will look something like `http://localhost:3000/api/v1/beers` (and similarly for styles). Separating concerns of our API and the rest of our app allows us to be more flexible and modular. Additionally, if we change our API around at some point in the future, we can namespace a v2 for our resources as well.
+
+If we namespace our api like above, we will have to update our controllers to be in `app/controllers/api/v1/<name_of_controller.rb>`. In this case, our `BeersController` will be located in `app/controllers/api/v1/beers_controller.rb`:
+
+```ruby
+class Api::V1::BeersController < ApplicationController
+  def index
+    @beers = Beer.all
+    render json: @beers
+  end
+end
+```
+
+Wait, what's `render json: @beers` mean? It's pretty much what it looks like. We are grabbing all the beers in our database and then displaying them as a json when we go to `localhost:3000/api/v1/beers` or `localhost:3000/api/v1/styles`.
+
+Similarly, let's write our `app/controllers/api/v1/styles_controller.rb` file:
+
+```ruby
+class Api::V1::StylesController < ApplicationController
+  def index
+    @styles = Style.all
+    render json: @styles
+  end
+end
+```
+
+Let's run `rails server` and visit these pages and see what they look like:
+
+Beers index page:
+
+![alt](http://i.imgur.com/NR5gby7.png)
+
+Styles index page:
+
+![alt](http://i.imgur.com/bXw0qhF.png)
 
 
 * Routes:
