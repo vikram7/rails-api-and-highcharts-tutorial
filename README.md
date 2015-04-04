@@ -1,13 +1,48 @@
 #Outline / Rough Draft
 
-##This tutorial will cover the following
+Tools to generate charts, graphs, plots are quite popular these days, and for good reason. They can turn millions of numbers into something tangible and understandable. [Knowledgent](http://knowledgent.com/infographics/data-viz-101/) says the following about data visualization:
 
-* Why do we want to visualize data?
-* How can we visualize data?
-* What is SVG? How do we use it?
-* What is Highcharts?
+```
+A well-crafted data visualization helps uncover trends, realize insights, explore sources, and tell stories.
+```
+
+Let's look at an example here. Of the two following images, which one can you quickly come to a conclusion with?:
+
+(1)
+```
+preferences =
+{"beer1"=>[24, 25],
+ "beer2"=>[57, 59],
+ "beer3"=>[41, 38],
+ "beer4"=>[46, 48],
+ "beer5"=>[77, 80],
+ "beer6"=>[72, 67],
+ "beer7"=>[14, 11],
+ "beer8"=>[84, 79],
+ "beer9"=>[34, 39],
+ "beer10"=>[20, 19],
+ "beer11"=>[21, 16],
+ "beer12"=>[73, 69],
+ "beer13"=>[35, 40],
+ "beer14"=>[83, 85],
+ "beer15"=>[40, 45],
+ "beer16"=>[10, 11],
+ "beer17"=>[71, 68],
+ "beer18"=>[45, 50],
+ "beer19"=>[56, 54],
+ "beer20"=>[20, 23]}
+```
+
+(2)
+![alt](http://i.imgur.com/wpG6PCp.png)
+
+Each point in the scatter plot is a comparison of two user's beer ratings of a particular beer. Looks like we both like `beer8` (which is probably some really Hoppy IPA if you're like me) a lot. Unless you can do some impressive math and calculations by just looking at data, (2) provides some meaningful analysis quickly. Without (2), we would be harder pressed to glean something important from (1). Imagine if we had 1,000 or 1,000,000 data points!
+
+This tutorial will cover the following
+
+* What tools can I use to visualize data?
 * How do I make a Rails API?
-* How do I hook up a Rails API with Highcharts?
+* How do I visualize the data from my Rails API?
 
 ##Show final example of what we're trying to do
 
