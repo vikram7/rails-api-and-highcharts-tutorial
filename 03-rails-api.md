@@ -32,7 +32,7 @@ Here's a roadmap of how we will take the above data and deliver it in JSON forma
 3. Create our backend database and write associated migrations.
 4. Update the `routes.rb` file to contain routes we care about.
 5. Write a seed file to populate our database.
-6. Write controllers to deliver the data based on some set of requirements implementing ActiveModel Serializer.
+6. See what our data looks like when we hit our API.
 ```
 
 Sounds complicated? It's not that bad. Let's get started.
@@ -152,53 +152,30 @@ end
 Ok, make sure everything looks normal in the schema file and now let's write a small seeder to seed our database:
 
 ```ruby
-styles = ["IPA", "Stout", "Ale", "Lager", "Wheat Beer"]
-count = 1
+styles = ["IPA", "Stout", "Lager", "Wheat Beer"]
 
 styles.each do |style|
-  style = Style.create!(name: style)
-  count += 1
-  Beer.create!(name: "Beer #{count}", style_id: style.id)
-  count += 1
-  Beer.create!(name: "Beer #{count}", style_id: style.id)
+  Style.create!(name: style)
 end
+
+style = Style.find_by(name: "IPA")
+Beer.create!(name: "Heady Topper", style_id: style.id)
+Beer.create!(name: "Pretty Things IPA", style_id: style.id)
+
+style = Style.find_by(name: "Stout")
+Beer.create!(name: "Guinness", style_id: style.id)
+Beer.create!(name: "Chocolate Stout", style_id: style.id)
+
+style = Style.find_by(name: "Lager")
+Beer.create!(name: "Brooklyn Lager", style_id: style.id)
+Beer.create!(name: "Yuengling", style_id: style.id)
+
+style = Style.find_by(name: "Wheat Beer")
+Beer.create!(name: "Hefeweizen", style_id: style.id)
+Beer.create!(name: "Dunkelweizen", style_id: style.id)
 ```
 
-Let's see what our database looks like in `rails console`:
-
-```
-Loading development environment (Rails 4.2.1)
-[1] pry(main)> Beer.all
-  Beer Load (0.6ms)  SELECT "beers".* FROM "beers"
-=> [#<Beer:0x007fe7de291648 id: 1, name: "Beer 2", style_id: 1, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Beer:0x007fe7de2912b0 id: 2, name: "Beer 3", style_id: 1, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Beer:0x007fe7de291030 id: 3, name: "Beer 4", style_id: 2, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Beer:0x007fe7de2909a0 id: 4, name: "Beer 5", style_id: 2, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Beer:0x007fe7de290428 id: 5, name: "Beer 6", style_id: 3, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Beer:0x007fe7de28be50 id: 6, name: "Beer 7", style_id: 3, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Beer:0x007fe7de28b338 id: 7, name: "Beer 8", style_id: 4, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Beer:0x007fe7de28aaa0 id: 8, name: "Beer 9", style_id: 4, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Beer:0x007fe7de28a0c8 id: 9, name: "Beer 10", style_id: 5, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Beer:0x007fe7de289ce0 id: 10, name: "Beer 11", style_id: 5, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>]
-[2] pry(main)> Style.all
-  Style Load (0.7ms)  SELECT "styles".* FROM "styles"
-=> [#<Style:0x007fe7de010c48 id: 1, name: "IPA", created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Style:0x007fe7de010838 id: 2, name: "Stout", created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Style:0x007fe7de010450 id: 3, name: "Ale", created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Style:0x007fe7de00be28 id: 4, name: "Lager", created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Style:0x007fe7de00bbf8 id: 5, name: "Wheat Beer", created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>]
-[3] pry(main)> Beer.first.style.name
-  Beer Load (0.7ms)  SELECT  "beers".* FROM "beers"  ORDER BY "beers"."id" ASC LIMIT 1
-  Style Load (0.2ms)  SELECT  "styles".* FROM "styles" WHERE "styles"."id" = $1 LIMIT 1  [["id", 1]]
-=> "IPA"
-[4] pry(main)> Style.first.beers
-  Style Load (0.4ms)  SELECT  "styles".* FROM "styles"  ORDER BY "styles"."id" ASC LIMIT 1
-  Beer Load (0.2ms)  SELECT "beers".* FROM "beers" WHERE "beers"."style_id" = $1  [["style_id", 1]]
-=> [#<Beer:0x007fe7df41ac20 id: 1, name: "Beer 2", style_id: 1, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>,
- #<Beer:0x007fe7df41aa68 id: 2, name: "Beer 3", style_id: 1, created_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00, updated_at: Sat, 04 Apr 2015 20:12:44 UTC +00:00>]
-```
-
-Looks like our `Beer` and `Style` associations are in place!
+We've now seeded our database with some styles and beers. Play around in `rails console` to see look at various associations!
 
 ####Update the `config/routes.rb` file
 
@@ -245,12 +222,13 @@ Let's run `rails server` and visit these pages and see what they look like:
 
 Beers index page:
 
-![alt](http://i.imgur.com/NR5gby7.png)
+![alt](http://i.imgur.com/nrPOSzr.png)
 
 Styles index page:
 
-![alt](http://i.imgur.com/bXw0qhF.png)
+![alt](http://i.imgur.com/RzfiNaY.png)
 
+Great! Our beers and styles are being delivered as JSON to their respective api/v1 index pages. Append `.json` to the end of each page and see what happens. Keep that in mind for the future!
 
 * Routes:
 
