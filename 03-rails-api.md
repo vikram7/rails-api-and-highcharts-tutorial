@@ -253,6 +253,10 @@ class StyleSerializer < ActiveModel::Serializer
 end
 ```
 
+Let's take a look at `/app/v1/styles` now!:
+
+![alt](http://i.imgur.com/lAiLlEc.png)
+
 * Routes:
 
 ```html
