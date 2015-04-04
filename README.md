@@ -1,9 +1,10 @@
-#Outline / Rough Draft
+#Introduction
 
 Tools to generate charts, graphs, plots are quite popular these days, and for good reason. They can help turn millions of numbers into something tangible and understandable. [Knowledgent](http://knowledgent.com/infographics/data-viz-101/) says the following about data visualization:
 
 ```
-A well-crafted data visualization helps uncover trends, realize insights, explore sources, and tell stories.
+A well-crafted data visualization helps uncover trends,
+realize insights, explore sources, and tell stories.
 ```
 
 Let's look at an example here. Of the two following images, which one can you quickly come to a conclusion with?:
@@ -43,13 +44,6 @@ This tutorial will cover the following
 * What tools can I use to visualize data with html?
 * How do I make a Rails API to deliver data I care about?
 * How do I visualize the data from my Rails API?
-
-##Show final example of what we're trying to do
-
-* Screenshot
-* Outline use cases clearly
-* Why do we care about looking at this data? The importance of visualization. Yes, they are cool, but there is more to it.
-* Dashboards with links to other resources on them
 
 ##Part 1 - Scalable Vector Graphics
 This section will cover SVG, or *scalable vector graphics*, as an introduction to graphing data with html.
