@@ -230,6 +230,28 @@ Styles index page:
 
 Great! Our beers and styles are being delivered as JSON to their respective api/v1 index pages. Append `.json` to the end of each page and see what happens. Keep that in mind for the future!
 
+####ActiveModel Serializers
+
+Say we wanted to deliver the total number of beers by style when we access `/api/v1/styles`. How would we do that? We can take advantage of a tool called [ActiveModel Serializers](https://github.com/rails-api/active_model_serializers).
+
+[Explanation of ActiveModel Serializers], see [json api org](http://jsonapi.org/)
+
+We can pass a beers count directly into the Styles JSON when our user accesses `/api/v1/styles`. But first, we need to add a `serializers` directory to `app`. So let's make one for `Style` first:
+
+`touch app/serializers/style_serializer.rb`
+
+```ruby
+class StyleSerializer < ActiveModel::Serializer
+  embed :ids
+
+  attributes :id, :name, :beers_count
+
+  def beers_count
+    object.beers.count
+  end
+end
+```
+
 * Routes:
 
 ```html
