@@ -46,12 +46,12 @@ This tutorial will cover the following
 * How do I visualize the data from my Rails API?
 
 ##Part 1 - Scalable Vector Graphics
-This section will cover SVG, or *scalable vector graphics*, as an introduction to graphing data with html.
+This section covers SVG, or *scalable vector graphics*, as an introduction to graphing data with html.
 
 [Making Graphs Manually with SVG](01-svg.md)
 
 ##Part 2 - The Highcharts Javascript Charting Library
-This section will be an introduction to the [Highcharts](http://www.highcharts.com/) Javascript library and how we can use it to make nice looking charts, from simple ones like bar charts to more complex ones like scatter plots.
+This section is an introduction to the [Highcharts](http://www.highcharts.com/) Javascript library and how we can use it to make nice looking charts, from simple ones like bar charts to more complex ones like scatter plots.
 
 [Highcharts](02-highcharts.md)
 
