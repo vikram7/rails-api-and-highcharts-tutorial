@@ -6,7 +6,6 @@ Creating a Rails API is very similar to creating a Rails app. We will be followi
 
 Here's a roadmap of how we will take the above data and deliver it in JSON format:
 
-[UPDATE THE BELOW ORDER]
 ```
 1. Install the Rails API gem
 2. Generate a new Rails API app and update our Gemfile.
@@ -318,7 +317,7 @@ class Review < ActiveRecord::Base
 end
 ```
 
-These are the migrations we'll need:
+And these are the migrations we'll need:
 
 ```ruby
 class CreateBeers < ActiveRecord::Migration
@@ -381,6 +380,43 @@ class CreateReviews < ActiveRecord::Migration
   end
 end
 ```
+
+And here is the code to seed (`db/seeds.rb`) our database from a larger version of the CSV snippet provided above:
+
+```ruby
+require 'csv'
+
+file = File.read('db/data/Ratebeer.csv')
+csv = CSV.parse(file, :headers => true, :header_converters => :symbol)
+
+count = 1
+csv.each do |row|
+  puts "Creating style with name: #{row[:style]}"
+  style = Style.find_or_create_by!(name: row[:style])
+
+  puts "Creating user with profile_name: #{row[:profile_name]}"
+  if !User.find_by(profile_name: row[:profile_name])
+    user = User.create!(profile_name: row[:profile_name])
+  else
+    user = User.find_by(profile_name: row[:profile_name])
+  end
+
+  puts "Creating beer with name: #{row[:name]}"
+  beer = Beer.find_or_initialize_by(row.to_hash.slice(:name, :abv))
+  beer.style = style
+  beer.save!
+
+  puts "Creating review"
+  review = user.reviews.find_or_initialize_by(beer: beer)
+  review_attrs = row.to_hash.slice(:taste, :text)
+  review.update_attributes!(review_attrs)
+
+  puts "Completed Row #:#{count}"
+  count += 1
+end
+```
+
+
 
 * Routes:
 
