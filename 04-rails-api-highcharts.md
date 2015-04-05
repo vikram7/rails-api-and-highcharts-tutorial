@@ -12,7 +12,7 @@ Well, let's break this problem down. First we'll have to hit our API to grab the
 (3) Pass parsed data to Highcharts chart
 ```
 
-One thing we need to keep in mind is that we can't just hit `http://localhost:3000/api/v1/beers` and store the response as a variable in Javascript. For security reasons, we'll have to hit another url:
+One thing we need to keep in mind is that we can't just hit `http://localhost:3000/api/v1/beers` and store the response as a variable in Javascript. For security reasons (which you can read more about [here](http://en.wikipedia.org/wiki/Same-origin_policy)), we'll have to hit another url:
 
 `
 http://localhost:3000/api/v1/beers.jsonp?callback=?
