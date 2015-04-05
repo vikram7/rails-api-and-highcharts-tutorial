@@ -61,5 +61,6 @@ This section will explain how to create a simple Rails API with the Rails API ge
 [Making a Rails API](03-rails-api.md)
 
 ##Part 4 - Highcharts with a Rails API
+This section highlights connecting a Rails API with Highcharts. It covers data manipulation on both the server and client side to push appropriately formatted data to Highcharts charts for both bar and scatter plots.
 
 [Hooking up your Rails API with Highcharts](04-rails-api-highcharts.md)

@@ -12,7 +12,13 @@ Well, let's break this problem down. First we'll have to hit our API to grab the
 (3) Pass parsed data to Highcharts chart
 ```
 
-[Show errors involved in trying to hit the API. Cross site thing]
+One thing we need to keep in mind is that we can't just hit `http://localhost:3000/api/v1/beers` and store the response as a variable in Javascript. For security reasons, we'll have to hit another url:
+
+`
+http://localhost:3000/api/v1/beers.jsonp?callback=?
+`
+
+Javascript will generate a callback which will allow us to store our JSON. Additionally, we'll have to update our `BeersController` to allow for this.
 
 Update Beers index controller:
 
@@ -35,7 +41,7 @@ $.getJSON(url, function (json) {
 });
 ```
 
-[Screenshot]
+![alt](http://i.imgur.com/F6OnHuF.png)
 
 Perfect! Now let's see the name of the first beer!
 
@@ -47,7 +53,7 @@ $.getJSON(url, function (json) {
 });
 ```
 
-[Screenshot]
+![alt](http://i.imgur.com/wAgKAyp.png)
 
 Finally. Looks like we're making some progress and can start building our charts. What's next? Let's figure out how to print the top 10 beers by number of reviews (or `reviews_count`). Let's grab the [Column with Rotated Labels](http://www.highcharts.com/demo/column-rotated-labels) chart on the Highcharts website and replicate it for our data.
 
