@@ -440,5 +440,36 @@ Let's take a look at `api/v1/beers` now:
 
 ![alt](http://i.imgur.com/c4uB8rS.png)
 
-See how valuable JSON data is in a format that we can do something with? Now let's actually chart some data!
+Looks good, but it took forever to load! Probably because I was calculating `reviews.count` for each beer. We can implement a [counter_cache](http://guides.rubyonrails.org/association_basics.html#detailed-association-reference) to avoid that, so let's just do that now:
 
+```ruby
+#app/models/review.rb
+
+class Review < ActiveRecord::Base
+  belongs_to :beer, counter_cache: true
+  belongs_to :user
+
+  validates :beer, presence: true
+  validates :taste, presence: true
+end
+```
+
+We also need to add a `reviews_count` column to `Beer` table as a migration:
+
+```ruby
+#db/migrate/xxxxxxxx_add_reviews_count_to_beers.rb
+
+class AddReviewsCountToBeers < ActiveRecord::Migration
+  def change
+    add_column :beers, :reviews_count, :integer
+  end
+end
+```
+
+Great. All we need to do now is run the following in `rails console` to update the counters:
+
+```ruby
+Beer.find_each { |beer| Beer.reset_counters(beer.id, :reviews)}
+```
+
+Try loading the page again. See how much faster it took? Also, see how valuable JSON data is in a format that we can do something with? Now let's actually chart some data!
