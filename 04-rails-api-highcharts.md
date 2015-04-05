@@ -261,4 +261,6 @@ After our update, let's load up our chart:
 
 ![alt](http://i.imgur.com/e2dxR2W.png)
 
-That wasn't too bad!
+That wasn't too bad! And just by glancing at our chart, we can see that Chimay Blue has 30% more reviews than Chimay Rouge and the next closest brewer is Lagunitas. Pretty interesting. What else can we do?
+
+
