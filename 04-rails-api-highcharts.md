@@ -15,6 +15,7 @@ Well, let's break this problem down. First we'll have to hit our API to grab the
 [Show errors involved in trying to hit the API. Cross site thing]
 
 Update Beers index controller:
+
 ```ruby
 class Api::V1::BeersController < ApplicationController
   def index
@@ -48,4 +49,4 @@ $.getJSON(url, function (json) {
 
 [Screenshot]
 
-Finally, looks like we're making some progress and can start building our charts. What's next?
+Finally. Looks like we're making some progress and can start building our charts. What's next?
