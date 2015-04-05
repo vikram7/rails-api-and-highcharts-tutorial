@@ -489,4 +489,6 @@ And the output:
 
 ![alt](http://i.imgur.com/v6vEHJM.png)
 
-Chimay and Lagunitas seem pretty popular to review! See how valuable JSON data is in a format that we can do something with? Now let's actually chart some data!
+Chimay and Lagunitas seem pretty popular to review!
+
+See how valuable JSON data is in a format that we can do something with? Now let's actually chart some data!
