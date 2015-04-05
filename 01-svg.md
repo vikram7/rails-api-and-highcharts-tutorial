@@ -191,4 +191,4 @@ That would generate the following scatter plot:
 
 It's a start! But that's a whole lot of work just to generate a single scatter plot. Plus it doesn't even look that nice. What if I need to make a bunch of scatter plots or want to style and color them differently? There has to be an easier way! We'll look at that easier way in the next section on Highcharts, a Javascript charting library.
 
-Part 2 - The Highcharts Javascript Charting Library: [Highcharts](02-highcharts.md)
+The Highcharts Javascript Charting Library: [Part 2](02-highcharts.md)

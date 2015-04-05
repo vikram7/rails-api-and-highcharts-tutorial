@@ -364,4 +364,4 @@ The graph also looks much nicer than our SVG one! As you can tell, highcharts gi
 
 But we still have a pretty important issue to deal with. We can't be manually entering in this data over and over for each new chart we want to build. We want our chart to update dynamically if our data changes. Imagine if we had users `user3` and `user4` with different scatter plot data. We would want our chart to handle that instead of having to manually change labels and data. We'll look at how we might do that in the next section.
 
-Part 3 - Making a Rails API: [Making a Rails API](03-rails-api.md)
+Making a Rails API: [Part 3](03-rails-api.md)

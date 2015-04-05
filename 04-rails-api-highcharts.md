@@ -4,7 +4,7 @@ In the [last section](03-rails-api.md), we made a simple API that delivered beer
 
 The primary question we'll try to answer here is this: How do we pass JSON data to Highcharts?
 
-Well, let's break this problem down. First we'll have to hit our API to grab the data we care about. Since this happens on the client side, we'll use Javascript to do so. Here's the pseudocoded version of what we're going to have to do
+Well, let's break this problem down. First we'll have to hit our API to grab the data we care about. Since this happens on the client side, we'll use Javascript to do that. Here's the pseudocoded version of what we're going to have to do
 
 ```
 (1) Write Javascript code to hit Rails API
@@ -14,11 +14,9 @@ Well, let's break this problem down. First we'll have to hit our API to grab the
 
 One thing we need to keep in mind is that we can't just hit `http://localhost:3000/api/v1/beers` and store the response as a variable in Javascript. For security reasons (which you can read more about [here](http://en.wikipedia.org/wiki/Same-origin_policy)), we'll have to hit another url:
 
-`
-http://localhost:3000/api/v1/beers.jsonp?callback=?
-`
+`http://localhost:3000/api/v1/beers.jsonp?callback=?`
 
-Javascript will generate a callback which will allow us to store our JSON. Additionally, we'll have to update our `BeersController` to allow for this.
+Javascript will generate a callback which will allow us to store our JSON in JSONP format. Additionally, we'll have to update our `BeersController` to allow for this.
 
 Update Beers index controller:
 
@@ -55,7 +53,9 @@ $.getJSON(url, function (json) {
 
 ![alt](http://i.imgur.com/wAgKAyp.png)
 
-Finally. Looks like we're making some progress and can start building our charts. What's next? Let's figure out how to print the top 10 beers by number of reviews (or `reviews_count`). Let's grab the [Column with Rotated Labels](http://www.highcharts.com/demo/column-rotated-labels) chart on the Highcharts website and replicate it for our data.
+Finally. Looks like we're making some progress and can start building our charts. What's next?
+
+Let's figure out how to print the top 10 beers by number of reviews (or `reviews_count`). Let's grab the [Column with Rotated Labels](http://www.highcharts.com/demo/column-rotated-labels) chart on the Highcharts website and replicate it for our data.
 
 ```javascript
 $(function () {
@@ -136,7 +136,7 @@ The above Javascript generates the following chart:
 
 ![alt](http://i.imgur.com/UWpBV87.png)
 
-Let's start by just doing the easy stuff, like changing the labels. Then we can wrap that code in our API request and adjust the data accordingly:
+Let's start by just doing the easy stuff like changing the labels. Then we can wrap that code in our API request and adjust the data accordingly:
 
 ```javascript
 $(function () {
@@ -470,6 +470,6 @@ Let's take a look at this work on the scatter plot!:
 
 ![alt](http://i.imgur.com/DA0gD25.png)
 
-Nice! Right now we're just comparing user with `id` of 1 and user with id of `2` but later on we could make our Javascript more dynamic by allowing us to enter in which users we want to compare.
+Nice! Right now we're just comparing user with `id` of 1 and user with id of `2` but later on we could make our Javascript more dynamic by allowing us to enter in which users we want to compare. We still have some work to do (like cleaning up our controller to deal with non-existent users and users who don't share beers), but for now, we're in a good place.
 
-Thanks for going through this tutorial! Hope it sheds some light on the power of Highcharts, Javascript and Rails APIs.
+Thanks for going through this tutorial! I hope it sheds some light on the power of Rails APIs and how we can take advantage of Highcharts and Javascript to make some simple but powerful data visualizations.

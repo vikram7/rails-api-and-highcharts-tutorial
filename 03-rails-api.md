@@ -491,4 +491,4 @@ Chimay and Lagunitas seem pretty popular to review!
 
 See how valuable JSON data is in a format that we can do something with? Now let's actually chart some data!
 
-Part 4 - Highcharts with a Rails API: [Hooking up your Rails API with Highcharts](04-rails-api-highcharts.md)
+Highcharts with a Rails API: [Part 4](04-rails-api-highcharts.md)
