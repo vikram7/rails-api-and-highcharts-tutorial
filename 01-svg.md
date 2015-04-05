@@ -2,7 +2,9 @@
 
 SVG, or Scalable Vector Graphics, an XML-based vector graphics system for the web allows for a number of benefits: SVG images can scale and zoom without degradation, they can be written with anything that supports HTML (though they are often drawn with an imaging program) and they can even be searched and indexed!
 
-For purposes of our discussion here, we are going to stick to a discussion of basic shapes like circles and rectangles, even though SVG can be used for much more. So how do we make images appear on an `html` page?
+For purposes of our discussion here, we are going to stick to a discussion of basic shapes like circles and rectangles, even though SVG can be used for much more. You can read more about SVG [here](http://en.wikipedia.org/wiki/Scalable_Vector_Graphics).
+
+So how do we make images appear on an `html` page?
 
 Let's make a basic html index page called `index.html`, which we will be updating:
 
@@ -18,7 +20,7 @@ This should be pretty straight forward. We're just creating an `index.html` file
 
 ![alt](http://i.imgur.com/ZIglSO8.png)
 
-Great, so we'll start updating our `index.html` file with an SVG image. Let's try something simple like a line. To be able to do that, let's stop for a second and discuss the SVG coordinate system. The SVG coordinate system is a little different from the kind of *x-y* *Cartesian* coordinate system we are familiar with. You probably saw lots of graphs like these in high school:
+Great. So we'll start updating our `index.html` file with an SVG image. Let's try something simple like a line. To be able to do that, let's stop for a second and discuss the SVG coordinate system. The SVG coordinate system is a little different from the *x-y* *Cartesian* coordinate system we are familiar with. You probably saw lots of graphs like these in high school:
 
 ![alt](http://accelerateu.org/resourceguides/math/m8_38.gif)
 
@@ -28,7 +30,7 @@ The SVG coordinate system, which we'll call the SVG *canvas*, is a bit different
 
 ![alt](http://media.creativebloq.futurecdn.net/sites/creativebloq.com/files/images/2013/05/Hannah/canvas1.jpg)
 
-Why the coordinate system starts at the top left corner is not incredibly important, but keep in mind that the *y* coordinate is reversed compared to the Cartesian system (if you are interested in reading more about the *why*, see this [link](http://gamedev.stackexchange.com/a/83571) for an explanation). This means that *y* moves vertically down when its value goes up.
+Why the coordinate system starts at the top left corner is not incredibly important, but keep in mind that the *y* coordinate is reversed compared to the Cartesian system (if you are interested in reading more about the *why*, see this [link](http://gamedev.stackexchange.com/a/83571) for an explanation). This means that *y* moves vertically down on the screen when its value goes up.
 
 So let's actually draw something! First, we have to create an SVG canvas for us in our `index.html` file:
 
@@ -78,7 +80,7 @@ The above code translates into the following:
 
 ![alt](http://i.imgur.com/K4WyTEf.png)
 
-Great! So we know how to draw a line, but how can we do more? Let's try a circle. SVG is pretty convenient. We just need to define a circle by location, radius and color and we're good to go:
+Great! So we know how to draw a line, but can we do more? Let's try a circle. SVG is pretty convenient. We just need to define a circle by location, radius and color and we're good to go:
 
 ```html
 <html>
@@ -95,7 +97,9 @@ We are defining a circle with *x* and *y* locations at point `(50, 50)` on the c
 
 ![alt](http://i.imgur.com/bpq4xWV.png)
 
-Let's add a second circle. Stop for a second and think about how we can do that. Yep, it's that easy. Just another line of code:
+Let's add a second circle. Stop for a second and think about how we can do that.
+
+Yep, it's that easy. Just another line of code:
 
 ```html
 <html>
@@ -113,7 +117,7 @@ And now on the screen:
 
 ![alt](http://i.imgur.com/dpJHLAc.png)
 
-Nice! Now we have two beautiful circles on our canvas. We can add multiple circles but you'd basically have to draw each additional shape manually to generate the image. For a scatterplot, this could result in ridiculously long code:
+Nice! Now we have two beautiful circles on our canvas. We can add multiple circles but you'd basically have to draw each additional shape manually to generate the image:
 
 ```html
 <svg width="100" height="100">
@@ -125,7 +129,7 @@ Nice! Now we have two beautiful circles on our canvas. We can add multiple circl
 </svg>
 ```
 
-We could try to be clever and write some Ruby code to generate the html code for us based on some inputs (just using random inputs here to make a point):
+For a scatterplot, this could result in ridiculously long code. We could try to be clever and write some Ruby code to generate the html code for us based on some inputs (just using random inputs here to make a point):
 
 ```ruby
 points = Array.new
@@ -185,4 +189,6 @@ That would generate the following scatter plot:
 
 ![alt](http://i.imgur.com/qYzNgTB.png)
 
-It's a start! But that's a whole lot of work just to generate a single scatter plot. Plus it doesn't even look that nice. What if I need to make many scatter plots or want to style and color them differently? There has to be an easier way! We'll look at that easier way in the next section on Highcharts, a Javascript charting library.
+It's a start! But that's a whole lot of work just to generate a single scatter plot. Plus it doesn't even look that nice. What if I need to make a bunch of scatter plots or want to style and color them differently? There has to be an easier way! We'll look at that easier way in the next section on Highcharts, a Javascript charting library.
+
+Part 2 - The Highcharts Javascript Charting Library: [Highcharts](02-highcharts.md)

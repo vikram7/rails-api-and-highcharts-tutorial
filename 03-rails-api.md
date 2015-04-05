@@ -186,9 +186,9 @@ class Api::V1::BeersController < ApplicationController
 end
 ```
 
-Wait, what's `render json: @beers` mean? It's pretty much what it looks like. We are grabbing all the beers in our database and then displaying them as a json when we go to `localhost:3000/api/v1/beers` or `localhost:3000/api/v1/styles`.
+Wait, what's `render json: @beers` mean? It's pretty much what it looks like. We are grabbing all the beers in our database and then displaying them as a json when we go to `localhost:3000/api/v1/beers`. We'll do something similar with styles.
 
-Similarly, let's write our `app/controllers/api/v1/styles_controller.rb` file:
+Let's write our `app/controllers/api/v1/styles_controller.rb` file:
 
 ```ruby
 class Api::V1::StylesController < ApplicationController
@@ -199,7 +199,7 @@ class Api::V1::StylesController < ApplicationController
 end
 ```
 
-Let's run `rails server` and visit these pages and see what they look like:
+Run `rails server` and visit these pages and see what they look like:
 
 Beers index page:
 
@@ -213,9 +213,7 @@ Great! Our beers and styles are being delivered as JSON to their respective api/
 
 ####ActiveModel Serializers
 
-Say we wanted to deliver the total number of beers by style when we access `/api/v1/styles`. How would we do that? We can take advantage of a tool called [ActiveModel Serializers](https://github.com/rails-api/active_model_serializers).
-
-[Explanation of ActiveModel Serializers], see [json api org](http://jsonapi.org/)
+Say we wanted to deliver the total number of beers by style when we access `/api/v1/styles`. How would we do that? We can take advantage of a tool called [ActiveModel Serializers](https://github.com/rails-api/active_model_serializers), which serializes the data we want to send through our API.
 
 We can pass a beers count directly into the Styles JSON when our user accesses `/api/v1/styles`. But first, we need to add a `serializers` directory to `app`. So let's make one for `Style` first:
 
@@ -237,7 +235,7 @@ Let's take a look at `/app/v1/styles` now!:
 
 ![alt](http://i.imgur.com/lAiLlEc.png)
 
-Note that we're only delivering the *attributes* that we have specifically stated in our `Style` serializer: **id**, **name**, and **beers_count**. This is why we don't see the timestamps like we did before. We are being quite willful here and determining which attributes we want to pass on.
+Note that we're only delivering the *attributes* that we have specifically stated in our `Style` serializer: **id**, **name**, and **beers_count**. This is why we don't see the timestamps like we did before. We are being quite specific here and determining which attributes we want to pass on.
 
 That seems like something we can chart, right? The *x*-axis would be the name of the style and the *y*-axis would be the number of beers of that particular style in the database.
 
@@ -466,7 +464,7 @@ class AddReviewsCountToBeers < ActiveRecord::Migration
 end
 ```
 
-Great. All we need to do now is run the following in `rails console` to update the counters:
+Great! All we need to do now is run the following in `rails console` to update the counters:
 
 ```ruby
 Beer.find_each { |beer| Beer.reset_counters(beer.id, :reviews)}
@@ -492,3 +490,5 @@ And the output:
 Chimay and Lagunitas seem pretty popular to review!
 
 See how valuable JSON data is in a format that we can do something with? Now let's actually chart some data!
+
+Part 4 - Highcharts with a Rails API: [Hooking up your Rails API with Highcharts](04-rails-api-highcharts.md)

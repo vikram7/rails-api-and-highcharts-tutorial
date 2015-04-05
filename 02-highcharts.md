@@ -1,6 +1,6 @@
 #Enter Highcharts
 
-[Highcharts](http://www.highcharts.com) is a Javascript library that simplifies charting data dramatically. It's a great way to get started with charting. We'll be following the Highcharts installation link [here](http://www.highcharts.com/docs/getting-started/installation). It's got a pretty good explanation of how to get started with Highcharts. First, let's setup our `index.html` file to *require* highcharts:
+[Highcharts](http://www.highcharts.com) is a Javascript library that simplifies charting data dramatically. It's a great way to get started with generating some nice looking charts. We'll be following the Highcharts installation link [here](http://www.highcharts.com/docs/getting-started/installation). It's got a pretty good explanation of how to get started with Highcharts. First, let's setup our `index.html` file to *require* highcharts:
 
 ```html
 <!DOCTYPE HTML>
@@ -99,7 +99,7 @@ And the updated chart:
 
 ![alt](http://i.imgur.com/ktnUOnX.png)
 
-Great! Seems pretty straight forward. Highcharts seems like a good option. Can we use it for a scatter plot? Navigating to [jsfiddle](http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/scatter/) on the Highcharts [demo](http://www.highcharts.com/demo/scatter) site can help us out here. Let's take a look at the code provided and see if we can adjust it for the random scatter plot we looked at with SVG:
+Seems pretty straight forward. Highcharts seems like a good option. Can we use it for a scatter plot? Navigating to [jsfiddle](http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/scatter/) on the Highcharts [demo](http://www.highcharts.com/demo/scatter) site can help us out here. Let's take a look at the code provided and see if we can adjust it for the random scatter plot we looked at with SVG:
 
 ```javascript
 $(function () {
@@ -360,6 +360,8 @@ Here, we changed axis variable names and are pretending to compare data based on
 
 ![alt](http://i.imgur.com/JYbWV5e.png)
 
-The graph also looks a bit nicer than our SVG one! As you can tell, highcharts gives us some nice options, especially for pre-built libraries of charts. Take a look at the Highcharts [demo](http://www.highcharts.com/demo) site to see other examples you can make with the library.
+The graph also looks much nicer than our SVG one! As you can tell, highcharts gives us some nice options especially for pre-built libraries of charts. Take a look at the Highcharts [demo](http://www.highcharts.com/demo) page to see other examples you can make with the library.
 
 But we still have a pretty important issue to deal with. We can't be manually entering in this data over and over for each new chart we want to build. We want our chart to update dynamically if our data changes. Imagine if we had users `user3` and `user4` with different scatter plot data. We would want our chart to handle that instead of having to manually change labels and data. We'll look at how we might do that in the next section.
+
+Part 3 - Making a Rails API: [Making a Rails API](03-rails-api.md)
