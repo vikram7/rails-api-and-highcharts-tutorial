@@ -56,6 +56,7 @@ This section is an introduction to the [Highcharts](http://www.highcharts.com/) 
 [Highcharts](02-highcharts.md)
 
 ##Part 3 - Making a Rails API
+This section will explain how to create a simple Rails API with the Rails API gem and ActiveModel Serializers.
 
 [Making a Rails API](03-rails-api.md)
 
