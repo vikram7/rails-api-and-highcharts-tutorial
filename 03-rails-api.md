@@ -1,6 +1,6 @@
 ##Interlude: Rails API Generation
 
-### The Rails API Roadmap?
+### The Rails API Roadmap
 
 Creating a Rails API is very similar to creating a Rails app. We will be following a very similar roadmap, but the data delivered from our controllers will be JSON data.
 
