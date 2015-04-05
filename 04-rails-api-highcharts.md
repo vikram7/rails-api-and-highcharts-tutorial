@@ -261,6 +261,209 @@ After our update, let's load up our chart:
 
 ![alt](http://i.imgur.com/e2dxR2W.png)
 
-That wasn't too bad! And just by glancing at our chart, we can see that Chimay Blue has 30% more reviews than Chimay Rouge and the next closest brewer is Lagunitas. Pretty interesting. What else can we do?
+That wasn't too bad! It just took a little bit of figuring out how to make the API call. The actual data manipulation was fairly straightforward. Now we have a nice visual of our data. Just by glancing at our chart, we can see that Chimay Blue has 30% more reviews than Chimay Rouge and the next closest brewer is Lagunitas. Pretty interesting. What else can we do?
 
+Well, we started this whole journey by looking at scatter plots, so why don't we finish up with one? We'll plot some user beer preferences. Our API doesn't provide us the ability to see let alone manipulate, user data just yet, so we have to write that functionality in.
 
+What do we want our API url to look like? There are probably a number of ways to do this, but the following is a straightforward one that comes to mind:
+
+`http://localhost:3000/api/v1/ratings/1?compare=2`
+
+This way we can have access to both `id`s of the users we want to compare, 1 and 2, in this case. Here's another example:
+
+`http://localhost:3000/api/v1/ratings/1200?compare=18`
+
+That API call will return ideally return a comparison of users with `id`s of 1200 and 18.
+
+First, let's update our `config/routes.rb` file to allow for this. Note that I'm going to limit the `users` route to the show action:
+
+```ruby
+Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      resources :beers, only: [:index]
+      resources :styles, only: [:index]
+      resources :ratings, only: [:show]
+    end
+  end
+end
+```
+
+Now we need to add a `RatingsController` in `app/controllers/api/v1/ratings_controller.rb`:
+
+```ruby
+class Api::V1::RatingsController < ApplicationController
+  def show
+  end
+end
+```
+
+Let's leave it mostly empty before we figure out what to to next. We'll have to do a few things now. Grab the beers that both have reviewed in common and return a json of those. We'll have to grab one user's data and then grab another's and see which beers they have in common that they have reviewed. Since a user `has_many beers through reviews`, we can simply return the intersection of the beers reviewed with another user.
+
+```
+(1) Take two users
+(2) Get a list of beers they have reviewed in common
+(3) Get the ratings of each of those beers by each user and return those
+```
+
+Great. Now let's update our RatingsController to do just that. We'll probably want to refactor a lot of this later on, but for now, let's get it to work!:
+
+```ruby
+class Api::V1::RatingsController < ApplicationController
+  def show
+    user1 = User.find(params[:id])
+    user2 = User.find(params[:compare])
+    beers_in_common = user1.beers & user2.beers
+    @beers_in_common_with_ratings = Array.new
+    beers_in_common.each do |beer|
+      user1_rating = beer.reviews.find_by(user_id: user1.id).taste
+      user2_rating = beer.reviews.find_by(user_id: user2.id).taste
+      @beers_in_common_with_ratings << {name: beer.name, user1_rating: user1_rating, user2_rating: user2_rating}
+    end
+    render json: @beers_in_common_with_ratings, callback: params['callback']
+  end
+end
+```
+
+Here's what we're doing. We're grabbing two user objects and then intersection the arrays of beers they have in common (the `&` operator returns the intersection of two arrays). Then we're generating a json friendly data structure called `@beers_in_common_with_ratings` that stores each of the intersected beer's respective user ratings. What does `http://localhost:3000/api/v1/ratings/1?compare=2` look like now?. Let's see!
+
+![alt](http://i.imgur.com/MLNW1l1.png)
+
+Great! Now we have enough data to make a scatter plot, so let's get to work! This is what the Javascript of the scatter plot in Part 2 of this tutorial looked like:
+
+```javascript
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Comparing Random Data of Two Users'
+        },
+        subtitle: {
+            text: 'Source: Ruby Magic'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'User1'
+            },
+            startOnTick: false,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: 'User2'
+            },
+            startOnTick: false
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    pointFormat: 'user1: {point.x}, user2: {point.y}'
+                }
+            }
+        },
+        series: [{
+            name: 'Random Data',
+            color: 'rgba(223, 83, 83, .5)',
+            data: [[9, 87], [32, 99], [74, 89], [43, 60], [17, 86], [47, 20], [28, 75],
+                   [86, 57], [66, 95], [86, 33], [0, 1], [78, 80], [66, 46], [80, 62],
+                   [45, 73], [50, 18], [74, 10], [74, 21], [37, 36], [92, 47], [39, 5],
+                   [53, 30], [10, 40], [12, 77], [60, 78]]
+        }]
+    });
+});
+```
+
+Using the API knowledge we gained earlier, let's start updating this Javascript:
+
+```javascript
+var url = "http://localhost:3000/api/v1/ratings/1?compare=2.jsonp?callback=?";
+
+$.getJSON(url, function (json) {
+    .
+    .
+    .
+```
+
+Because we have a comparison and a callback in our API url, we'll have to do a bit of data manipulation on the `RatingsController` side:
+
+```ruby
+class Api::V1::RatingsController < ApplicationController
+  def show
+    params[:format] = "jsonp"
+    user1 = User.find(params[:id])
+    user2 = User.find(params[:compare].split(".").first)
+    beers_in_common = user1.beers & user2.beers
+    @beers_in_common_with_ratings = Array.new
+    beers_in_common.each do |beer|
+      user1_rating = beer.reviews.find_by(user_id: user1.id).taste
+      user2_rating = beer.reviews.find_by(user_id: user2.id).taste
+      @beers_in_common_with_ratings << {name: beer.name, user1_rating: user1_rating, user2_rating: user2_rating}
+    end
+    render json: @beers_in_common_with_ratings, callback: params[:compare].split("=").last
+  end
+end
+```
+
+Now we can manipulate the data we got back:
+
+```javascript
+var url = "http://localhost:3000/api/v1/ratings/1?compare=2.jsonp?callback=?";
+
+$.getJSON(url, function (json) {
+    var ratings = new Array;
+    var count = json.ratings.length;
+    for (i = 0; i < count; i++) {
+        ratings.push([json.ratings[i].user1_rating, json.ratings[i].user2_rating]);
+    }
+    .
+    .
+    .
+            series: [{
+                name: 'Beer Data',
+                color: 'rgba(223, 83, 83, .5)',
+                data: ratings
+            }]
+        });
+    });
+});
+```
+
+Let's take a look at this work on the scatter plot!:
+
+![alt](http://i.imgur.com/DA0gD25.png)
+
+Nice! Right now we're just comparing user with `id` of 1 and user with id of `2` but later on we could make our Javascript more dynamic by allowing us to enter in which users we want to compare.
+
+Thanks for going through this tutorial! Hope it sheds some light on the power of Highcharts, Javascript and Rails APIs.
