@@ -10,7 +10,7 @@ realize insights, explore sources, and tell stories.
 Let's look at an example here. Of the two following (1) or (2), which one *appears* to be more meaningful than the other?:
 
 (1)
-```
+```ruby
 preferences =
 {"beer1"=>[24, 25],
  "beer2"=>[57, 59],
@@ -37,7 +37,7 @@ preferences =
 (2)
 ![alt](http://i.imgur.com/wpG6PCp.png)
 
-Each point in the scatter plot is a comparison of two user's beer ratings of a particular beer. Looks like we both like `beer8` (which is probably some really hoppy IPA if you're like me) a lot. Unless you have some impressive mental data visualization tools at your cognitive disposal, (2) provides some meaningful analysis quickly. Without (2), we would be harder pressed to glean something important from (1). Even though (1) and (2) *contain* the same data, the *representation* of that data makes the difference. Imagine if we had 1,000 beers to compare between one another or if we had a database of 1,000,000 users! Which approach would could help us say something meaningful? Let's figure out how we can take advantage of the data visualization tools out there.
+Each point in the scatter plot is a comparison of two user's beer ratings of a particular beer. The *x* coordinate is the rating of a particular beer for me and the *y* coordinate is the rating for that particular beer for you. Looks like we both like `beer8` (which is probably some really hoppy IPA if you're like me) a lot. Unless you have some impressive mental data visualization tools at your cognitive disposal, (2) provides some meaningful analysis quickly. Without (2), we would be harder pressed to glean something important from (1). Even though (1) and (2) *contain* the same data, the *representation* of that data makes the difference. Imagine if we had 1,000 beers to compare between one another or if we had a database of 1,000,000 users! Which approach would could help us say something meaningful? Let's figure out how we can take advantage of the data visualization tools out there.
 
 This tutorial will cover the following
 
