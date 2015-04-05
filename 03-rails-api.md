@@ -472,4 +472,21 @@ Great. All we need to do now is run the following in `rails console` to update t
 Beer.find_each { |beer| Beer.reset_counters(beer.id, :reviews)}
 ```
 
-Try loading the page again. See how much faster it took? Also, see how valuable JSON data is in a format that we can do something with? Now let's actually chart some data!
+Try loading the page again. See how much faster it took?
+
+Let's update our `Beers` controller to update to return a JSON of beers sorted by `reviews_count`:
+
+```ruby
+class Api::V1::BeersController < ApplicationController
+  def index
+    @beers = Beer.order("reviews_count desc")
+    render json: @beers
+  end
+end
+```
+
+And the output:
+
+![alt](http://i.imgur.com/v6vEHJM.png)
+
+Chimay and Lagunitas seem pretty popular to review! See how valuable JSON data is in a format that we can do something with? Now let's actually chart some data!
