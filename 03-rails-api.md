@@ -1,4 +1,4 @@
-##Interlude: Rails API Generation
+#Interlude: Rails API Generation
 
 ### The Rails API Roadmap
 

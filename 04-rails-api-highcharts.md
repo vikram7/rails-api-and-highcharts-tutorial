@@ -1,12 +1,5 @@
-* Routes:
+#Wiring up Highcharts with a Rails API
 
-```html
-users/compare/vikram7/atsheehan
-users/compare/atsheehan/vikram7
-```
+In the [last section](03-rails-api.md), we made a simple API that delivered beer review related data in JSON format. Now let's figure out how to take that JSON format and visualize it.
 
-
-
-* Using data we have, we create a graph with HighCharts.
-* can we pass json data to highcharts?
-* Hitting the api to generate the graphics dynamically
+The primary question we'll try to answer here is this: How do we pass JSON data to Highcharts?
